@@ -7,23 +7,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    trem1 = new Trem(1,144,130);
-    trem2 = new Trem(2,144,230);
+    trem1 = new Trem(1, 144, 130);
+    trem2 = new Trem(2, 144, 230);
+    trem3 = new Trem(3, 341, 230);
+    trem4 = new Trem(4, 0, 0);
 
     connect(trem1,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trem2,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+    connect(trem3,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
 
     trem1->start();
     trem2->start();
+    trem3->start();
+    trem4->start();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::drawRails() {
-
 }
 
 void MainWindow::updateInterface(int id, int x, int y)
@@ -36,6 +37,10 @@ void MainWindow::updateInterface(int id, int x, int y)
         case 2:
             ui->labelTrem02->setGeometry(x,y,15,15);
             break;
+
+    case 3:
+        ui->labelTrem03->setGeometry(x,y,15,15);
+        break;
 
         default:
             break;

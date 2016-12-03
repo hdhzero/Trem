@@ -5,7 +5,7 @@ Trem::Trem(int id, int x, int y)
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 70;
+    velocidade = 30;
     enable = true;
 }
 
@@ -47,7 +47,9 @@ void Trem::run()
                 else
                     y -= 1;
             }
+
             break;
+
         case 2:
             if (enable) {
                 emit updateGUI(id,x,y);
@@ -64,9 +66,28 @@ void Trem::run()
             }
 
             break;
+
+        case 3:
+            if (enable) {
+                emit updateGUI(id,x,y);
+
+                if (x == 242 && y > 193) {
+                    y -= 1;
+                } else if (y == 193 && x < 341) {
+                    x += 1;
+                } else if (x == 341 && y < 291) {
+                    y += 1;
+                } else {
+                    x -= 1;
+                }
+            }
+
+            break;
+
         default:
             break;
         }
+
         this_thread::sleep_for(chrono::milliseconds(velocidade));
     }
 }

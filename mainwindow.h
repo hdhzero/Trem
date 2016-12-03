@@ -22,12 +22,11 @@ public slots:
     void updateInterface(int,int,int);
 
 private:
-    void drawRails();
-
-private:
     Ui::MainWindow *ui;
     Trem* trem1;
     Trem* trem2;
+    Trem* trem3;
+    Trem* trem4;
 };
 
 #endif // MAINWINDOW_H
