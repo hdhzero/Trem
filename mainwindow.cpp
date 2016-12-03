@@ -9,8 +9,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     trem1 = new Trem(1,144,130);
     trem2 = new Trem(2,144,230);
+
     connect(trem1,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+    connect(trem2,SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+
     trem1->start();
+    trem2->start();
 }
 
 MainWindow::~MainWindow()
@@ -28,8 +32,11 @@ void MainWindow::updateInterface(int id, int x, int y)
         case 1:
             ui->labelTrem01->setGeometry(x,y,15,15);
             break;
+
         case 2:
+            ui->labelTrem02->setGeometry(x,y,15,15);
             break;
+
         default:
             break;
     }

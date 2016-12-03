@@ -54,7 +54,13 @@ void Trem::run()
 
                 if (x == 144 && y > 193) {
                     y -= 1;
-                } else if (y == 193 && x ) {}
+                } else if (y == 193 && x < 242) {
+                    x += 1;
+                } else if (x == 242 && y < 291) {
+                    y += 1;
+                } else {
+                    x -= 1;
+                }
             }
 
             break;
