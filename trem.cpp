@@ -31,6 +31,8 @@ void Trem::start()
 
 void Trem::run()
 {
+    bool up_flag = true;
+
     while(true){
         switch(id){
         case 1:
@@ -80,6 +82,30 @@ void Trem::run()
                 } else {
                     x -= 1;
                 }
+            }
+
+            break;
+
+        case 4:
+            if (enable) {
+                emit updateGUI(id,x,y);
+
+                if (x == 242 && y > 95 && up_flag) {
+                    y -= 1;
+                } else if (y == 95 && x > 144) {
+                    x-= 1;
+                    up_flag = false;
+                } else if (x == 144 && y < 291){
+                    y += 1;
+                } else if (y == 291 && x < 341) {
+                    x += 1;
+                } else if (x == 341 && y < 390) {
+                    y += 1;
+                } else {
+                    x -= 1;
+                    up_flag = true;
+                }
+
             }
 
             break;
