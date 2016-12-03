@@ -1,7 +1,6 @@
 #include "trem.h"
 
-Trem::Trem(int id, int x, int y)
-{
+Trem::Trem(int id, int x, int y) {
     this->id = id;
     this->x = x;
     this->y = y;
@@ -9,28 +8,23 @@ Trem::Trem(int id, int x, int y)
     enable = true;
 }
 
-Trem::~Trem()
-{
+Trem::~Trem() {
     threadTrem.join();
 }
 
-void Trem::setVelocidade(int velocidade)
-{
+void Trem::setVelocidade(int velocidade) {
     this->velocidade = velocidade;
 }
 
-void Trem::setEnable(bool enable)
-{
+void Trem::setEnable(bool enable) {
     this->enable = enable;
 }
 
-void Trem::start()
-{
+void Trem::start() {
     threadTrem = std::thread(&Trem::run,this);
 }
 
-void Trem::run()
-{
+void Trem::run() {
     bool up_flag = true;
 
     while(true){
@@ -105,7 +99,6 @@ void Trem::run()
                     x -= 1;
                     up_flag = true;
                 }
-
             }
 
             break;

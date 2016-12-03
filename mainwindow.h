@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "trem.h"
+#include "servidor.h"
 #include <QMainWindow>
 
 using namespace std;
@@ -27,6 +28,7 @@ private:
     Trem* trem2;
     Trem* trem3;
     Trem* trem4;
+    Servidor servidor;
 };
 
 #endif // MAINWINDOW_H
