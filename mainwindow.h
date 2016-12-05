@@ -4,6 +4,7 @@
 #include "trem.h"
 #include "servidor.h"
 #include <QMainWindow>
+#include <QMutex>
 
 using namespace std;
 
@@ -29,6 +30,7 @@ private:
     Trem* trem3;
     Trem* trem4;
     Servidor servidor;
+    QMutex trilhos[13];
 };
 
 #endif // MAINWINDOW_H

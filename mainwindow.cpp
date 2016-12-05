@@ -8,10 +8,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    trem1 = new Trem(1, 144, 130);
-    trem2 = new Trem(2, 144, 230);
-    trem3 = new Trem(3, 341, 230);
-    trem4 = new Trem(4, 295, 390);
+    trem1 = new Trem(1, 144, 130, trilhos);
+    trem2 = new Trem(2, 144, 230, trilhos);
+    trem3 = new Trem(3, 341, 230, trilhos);
+    trem4 = new Trem(4, 295, 390, trilhos);
 
     servidor.addTrem(trem1, 1);
     servidor.addTrem(trem2, 2);
@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
     trem3->start();
     trem4->start();
     trem4->setVelocidade(10);
+    trem1->setVelocidade(5);
+    trem3->setVelocidade(3);
+    trem2->setVelocidade(7);
 }
 
 MainWindow::~MainWindow() {
