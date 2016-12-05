@@ -30,8 +30,10 @@ private:
    int x;
    int y;
    int velocidade;
+   float speed;
    bool enable;
    QMutex* trilhos;
+   float speed_table[32];
 };
 
 #endif // TREM_H

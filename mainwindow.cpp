@@ -28,9 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
     trem3->start();
     trem4->start();
     trem4->setVelocidade(10);
-    trem1->setVelocidade(5);
-    trem3->setVelocidade(3);
-    trem2->setVelocidade(7);
+    trem1->setVelocidade(10);
+    trem3->setVelocidade(10);
+    trem2->setVelocidade(10);
 }
 
 MainWindow::~MainWindow() {
