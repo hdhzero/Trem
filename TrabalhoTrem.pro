@@ -16,11 +16,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     trem.cpp \
-    servidor.cpp
+    servidor.cpp \
+    socket.cpp
 
 HEADERS  += mainwindow.h \
     trem.h \
-    servidor.h
+    servidor.h \
+    socket.h
 
 FORMS    += mainwindow.ui
 

@@ -4,8 +4,8 @@ Trem::Trem(int id, int x, int y, QMutex* trilhos) {
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 30;
-    speed = 0.3;
+    velocidade = 5;
+    speed = 1.0;
     enable = true;
     this->trilhos = trilhos;
 
@@ -22,8 +22,8 @@ Trem::~Trem() {
     threadTrem.join();
 }
 
-void Trem::setVelocidade(int velocidade) {
-    this->velocidade = velocidade;
+void Trem::setSpeed(int speed) {
+    this->speed = speed_table[speed];
 }
 
 void Trem::setEnable(bool enable) {

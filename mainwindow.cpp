@@ -27,10 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trem2->start();
     trem3->start();
     trem4->start();
-    trem4->setVelocidade(10);
-    trem1->setVelocidade(10);
-    trem3->setVelocidade(10);
-    trem2->setVelocidade(10);
+    servidor.start();
 }
 
 MainWindow::~MainWindow() {

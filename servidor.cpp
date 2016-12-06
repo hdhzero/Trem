@@ -1,7 +1,7 @@
 #include "servidor.h"
 
-Servidor::Servidor(int port) {
-    this->port = port;
+Servidor::Servidor(int port) : sock(port) {
+
 }
 
 Servidor::~Servidor() {
@@ -13,7 +13,33 @@ void Servidor::start() {
 }
 
 void Servidor::run() {
+    int trem;
+    bool enable;
+    int speed;
 
+    while (true) {
+        Socket cli = sock.accept();
+
+        unsigned char cmd = cli.read_byte();
+        printf("Received: %i\n", (int) cmd);
+
+        if (cmd == 0 || cmd == 1) {
+            trens[0]->setEnable(cmd == 1);
+            trens[1]->setEnable(cmd == 1);
+            trens[2]->setEnable(cmd == 1);
+            trens[3]->setEnable(cmd == 1);
+        } else if (cmd & 0x08) {
+            trem = (cmd  >> 1) & 0x03;
+            enable = cmd & 0x01;
+            trens[trem]->setEnable(enable);
+        } else if (cmd & 0x80) {
+            trem = (cmd >> 5) & 0x03;
+            speed = cmd & 0x1f;
+            trens[trem]->setSpeed(speed);
+        } else {
+            trens[0]->setEnable(false);
+        }
+    }
 }
 
 void Servidor::addTrem(Trem *trem, int id) {

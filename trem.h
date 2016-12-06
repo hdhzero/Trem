@@ -15,8 +15,8 @@ public:
     ~Trem();
     void start();
     void run();
-    void setVelocidade(int);
     void setEnable(bool);
+    void setSpeed(int);
 
 signals:
     void updateGUI(int,int,int);
