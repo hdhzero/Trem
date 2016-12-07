@@ -1,0 +1,12 @@
+[ ] Conectar ao servidor
+[ ] Desconectar do servidor
+[*] Ligar todos os trens
+[ ] Desligar todos os trens
+[ ] Ligar/desligar trem amarelo (ligado)
+[ ] Ligar/desligar trem vermelho (desligado)
+[ ] Ligar/desligar trem azul (ligado)
+[ ] Ligar/desligar trem preto (ligado)
+[ ] Setar velocidade do trem amarelo
+[ ] Setar velocidade do trem vermelho
+[ ] Setar velocidade do trem azul
+[ ] Setar velocidade do trem preto

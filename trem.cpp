@@ -1,21 +1,17 @@
 #include "trem.h"
 
 Trem::Trem(int id, int x, int y, QMutex* trilhos) {
+    for (int i = 0; i < 32; ++i) {
+        speed_table[i] = i / 31.0;
+    }
+
     this->id = id;
     this->x = x;
     this->y = y;
     velocidade = 3;
-    speed = 1.0;
+    speed = speed_table[7];
     enable = true;
     this->trilhos = trilhos;
-
-    if (id == 2) {
-        trilhos[1].lock();
-    }
-
-    for (int i = 0; i < 32; ++i) {
-        speed_table[i] = 1.0 - (1.0 / 32.0) * (31 - i);
-    }
 }
 
 Trem::~Trem() {
@@ -72,7 +68,6 @@ void Trem::run() {
             if (y == 95 && x > 144) {
                 walk(x, 242 - TLIMIT, false);
                 trilhos[5].unlock();
-                trilhos[8].unlock();
                 walk(x, 144 + TLIMIT, false);
                 trilhos[0].lock();
                 walk(x, 144, false);
@@ -92,6 +87,7 @@ void Trem::run() {
             } else {
                 walk(y, 193 - TLIMIT, false);
                 trilhos[3].unlock();
+                trilhos[8].unlock();
                 walk(y, 95 + TLIMIT, false);
                 trilhos[2].lock();
                 walk(y, 95, false);
@@ -136,12 +132,11 @@ void Trem::run() {
             } else if (y == 193 && x < 341) {
                 walk(x, 242 + TLIMIT, true);
                 trilhos[6].unlock();
+                trilhos[8].unlock();
                 walk(x, 341 - TLIMIT, true);
                 trilhos[11].lock();
                 walk(x, 341, true);
             } else if (x == 341 && y < 291) {
-                walk(y, 193 + TLIMIT, true);
-                trilhos[8].unlock();
                 walk(y, 291 - TLIMIT, true);
                 trilhos[9].lock();
                 walk(y, 291, true);
@@ -157,37 +152,48 @@ void Trem::run() {
 
         case 4:
             if (x == 242 && y > 291 && up_flag) {
-                trilhos[7].lock();
-                walk(y, 291, false);
-                trilhos[7].unlock();
-            } else if (x == 242 && y > 193 && up_flag) {
+                walk(y, 291 + TLIMIT, false);
                 trilhos[6].lock();
-                walk(y, 193, false);
-                trilhos[6].unlock();
-            } else if (x == 242 && y > 95 && up_flag) {
+                walk(y, 291, false);
+            } else if (x == 242 && y > 193 && up_flag) {
+                walk(y, 193  + TLIMIT, false);
                 trilhos[5].lock();
-                walk(y, 95, false);
-                trilhos[5].unlock();
-            } else if (y == 95 && x > 144) {
+                walk(y, 193, false);
+            } else if (x == 242 && y > 95 && up_flag) {
+                walk(y, 193 - TLIMIT, false);
+                trilhos[6].unlock();
+                walk(y, 95 + TLIMIT, false);
                 trilhos[2].lock();
+                walk(y, 95, false);
+            } else if (y == 95 && x > 144) {
+                walk(x, 242 - TLIMIT, false);
+                trilhos[5].unlock();
+                walk(x, 144 + TLIMIT, false);
+                trilhos[0].lock();
                 walk(x, 144, false);
-                trilhos[2].unlock();
                 up_flag = false;
             } else if (x == 144 && y < 193) {
-                trilhos[0].lock();
-                walk(y, 193, true);
-                trilhos[0].unlock();
-            } else if (x == 144 && y < 291) {
+                walk(y, 95 + TLIMIT, true);
+                trilhos[2].unlock();
+                walk(y, 193 - TLIMIT, true);
                 trilhos[1].lock();
+                trilhos[4].lock();
+                trilhos[9].lock();
+                walk(y, 193, true);
+            } else if (x == 144 && y < 291) {
+                walk(y, 193 + TLIMIT, true);
+                trilhos[0].unlock();
                 walk(y, 291, true);
             } else if (y == 291 && x < 242) {
                 walk(x, 242, true);
-                trilhos[1].unlock();
             } else if (y == 291 && x < 341) {
-                trilhos[9].lock();
+                walk(x, 242 + TLIMIT, true);
+                trilhos[1].unlock();
+                trilhos[4].unlock();
                 walk(x, 341, true);
-                trilhos[9].unlock();
             } else if (x == 341 && y < 390) {
+                walk(y, 291 + TLIMIT, true);
+                trilhos[9].unlock();
                 walk(y, 390, true);
             } else {
                 walk(x, 242, false);

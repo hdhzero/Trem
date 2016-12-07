@@ -34,6 +34,10 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent* event) {
+    qApp->exit();
+}
+
 void MainWindow::updateInterface(int id, int x, int y) {
     switch(id){
         case 1:
