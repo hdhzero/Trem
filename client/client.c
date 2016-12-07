@@ -74,14 +74,14 @@ unsigned char socket_read_byte(Socket* sock) {
 /* Formato dos pacotes 
  * 	00000000 - desliga todos os trens
  *	00000001 - liga todos os trens
- *	00000xyp - p = 1 liga o trem xy; p = 0 desliga o trem xy
+ *	00001xyp - p = 1 liga o trem xy; p = 0 desliga o trem xy
  *	1xyvvvvv - seta a velocidade do trem xy, com a velocidade variando de 0 a 31
  */
 int main(int argc, char* argv[]) {
 	Socket* sock;
 	int byte = atoi(argv[1]);
 
-	sock = socket_new("127.0.0.1", 7000);
+	sock = socket_new("127.0.0.1", 8000);
 
 	socket_write_byte(sock, byte);
 	socket_destroy(sock);

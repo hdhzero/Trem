@@ -4,7 +4,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    servidor(7000)
+    servidor(8000)
 {
     ui->setupUi(this);
 
