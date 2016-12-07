@@ -16,7 +16,9 @@ public:
     void start();
     void run();
     void setEnable(bool);
+    int getEnable();
     void setSpeed(int);
+    int getSpeed();
 
 signals:
     void updateGUI(int,int,int);

@@ -36,8 +36,11 @@ void Servidor::run() {
             trem = (cmd >> 5) & 0x03;
             speed = cmd & 0x1f;
             trens[trem]->setSpeed(speed);
-        } else {
-            trens[0]->setEnable(false);
+        } else if (cmd == 2) {
+            for (int k = 0; k < 4; ++k) {
+                cmd = (trens[k]->getEnable() << 5) | (trens[k]->getSpeed() & 31);
+                cli.write_byte(cmd);
+            }
         }
     }
 }
