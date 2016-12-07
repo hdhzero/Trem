@@ -10,3 +10,4 @@
 [ ] Setar velocidade do trem vermelho
 [ ] Setar velocidade do trem azul
 [ ] Setar velocidade do trem preto
+[ ] Sair
