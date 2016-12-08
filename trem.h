@@ -33,6 +33,7 @@ private:
    int y;
    int velocidade;
    float speed;
+   int speed_index;
    bool enable;
    QMutex* trilhos;
    float speed_table[32];

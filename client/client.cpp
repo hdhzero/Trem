@@ -1,11 +1,12 @@
 #include "Socket.h"
 #include <ncurses.h>
+#include <cstring>
 
 bool servidor_conectado = false;
 int ligado[4] = {0, 0, 1, 0};
 int velocidades[4] = {17, 0, 0, 0};
 int opcao = 0;
-char* nomes[] = {"amarelo", "vermelho", "azul", "preto"};
+const char* nomes[] = {"amarelo", "vermelho", "azul", "preto"};
 char ip[] = "127.0.0.1";
 int porta = 8000;
 
@@ -25,8 +26,12 @@ void print_opcao(int op) {
 }
 
 void print_menu() {
-    printw("        * Controle de trens *\n");
-    printw("       ***********************\n");
+    printw("     ______                        \n");
+    printw("    /_  __/_______  ____  _____    \n");
+    printw("     / / / ___/ _ \\/ __ \\/ ___/    \n");
+    printw("    / / / /  /  __/ / / (__  )     \n");
+    printw("   /_/ /_/   \\___/_/ /_/____/      \n\n");
+    printw("         by Rafael and Mariana\n\n");
 
     print_opcao(0);
 
@@ -53,7 +58,7 @@ void print_menu() {
             printw(" (desligado)");
         }
 
-        move(5 + i, 31);
+        move(11 + i, 31);
         printw("[");
 
         int j;
@@ -85,7 +90,11 @@ void do_action() {
         ligado[2] = opcao == 2;
         ligado[3] = opcao == 2;
 
-        send_byte(opcao == 2);
+        if (opcao == 1) {
+            send_byte(3);
+        } else {
+            send_byte(4);
+        }
     } else if (opcao == 0) {
         if (!servidor_conectado) {
             Socket sock(ip, porta);
@@ -100,8 +109,6 @@ void do_action() {
             for (int k = 0; k < 4; ++k) {
                 velocidades[k] = status[k] & 31;
                 ligado[k] = status[k] & 0x20;
-
-                vwprintw("%i ", (int) status[k]);
             }
         }
 
@@ -121,7 +128,6 @@ void set_train_speed(int key) {
 
     if (key == 'a') {
         v = v > 0 ? v - 1 : 0;
-        velocidades[opcao - 3] = v > 0 ? v - 1 : 0;
     } else {
         v = v < 31 ? v + 1 : 31;
     }
