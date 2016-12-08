@@ -121,8 +121,10 @@ void Trem::run() {
                 walk(y, 193 + TLIMIT, true);
                 trilhos[3].unlock();
                 walk(y, 291 - TLIMIT, true);
+                trilhos[22].lock(); // tenta adquirir os trilhos 1 e 4 atomicamente
                 trilhos[1].lock();
                 trilhos[4].lock();
+                trilhos[22].unlock();
                 walk(y, 291, true);
             } else {
                 walk(x, 242 - TLIMIT, false);
@@ -148,7 +150,9 @@ void Trem::run() {
                 walk(x, 341, true);
             } else if (x == 341 && y < 291) {
                 walk(y, 291 - TLIMIT, true);
+                trilhos[22].lock(); // compete com o trem preto pelo trilho 9
                 trilhos[9].lock();
+                trilhos[22].unlock();
                 walk(y, 291, true);
             } else {
                 walk(x, 341 - TLIMIT, false);
@@ -186,9 +190,30 @@ void Trem::run() {
                 walk(y, 95 + TLIMIT, true);
                 trilhos[2].unlock();
                 walk(y, 193 - TLIMIT, true);
-                trilhos[1].lock();
-                trilhos[4].lock();
-                trilhos[9].lock();
+LLOCK:
+                trilhos[22].lock(); // tenta adquirir tres mutex atomicamente
+
+                if (trilhos[9].tryLock()) {
+                    if (trilhos[1].tryLock()) {
+                        if (trilhos[4].tryLock()) {
+                            // adquiriu os tres mutexes
+                        } else {
+                            trilhos[1].unlock();
+                            trilhos[9].unlock();
+                            trilhos[22].unlock();
+                            goto LLOCK;
+                        }
+                    } else {
+                        trilhos[9].unlock();
+                        trilhos[22].unlock();
+                        goto LLOCK;
+                    }
+                } else {
+                    trilhos[22].unlock();
+                    goto LLOCK;
+                }
+
+                trilhos[22].unlock();
                 walk(y, 193, true);
             } else if (x == 144 && y < 291) {
                 walk(y, 193 + TLIMIT, true);
